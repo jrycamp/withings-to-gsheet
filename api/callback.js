@@ -16,7 +16,7 @@ export default async function handler(req, res) {
       redirect_uri: process.env.REDIRECT_URI,
     });
 
-    const response = await fetch('https://wbsapi.withings.net/v2/oauth2/token', {
+    const response = await fetch('https://account.withings.com/oauth2/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
