@@ -7,6 +7,15 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Log des paramètres envoyés pour débogage
+    console.log({
+      grant_type: 'authorization_code',
+      client_id: process.env.CLIENT_ID,
+      client_secret: process.env.CLIENT_SECRET ? '****' : undefined,
+      code,
+      redirect_uri: process.env.REDIRECT_URI,
+    });
+
     const response = await fetch('https://wbsapi.withings.net/v2/oauth2/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -32,5 +41,6 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: error.message });
   }
 }
+
 
 
