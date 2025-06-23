@@ -1,8 +1,16 @@
 export default function handler(req, res) {
-  const { code, state } = req.query;
-  if (!code) {
-    return res.status(400).send('Missing code parameter');
+  const { code, state, error } = req.query;
+
+  if (error) {
+    return res.status(400).json({ error: error });
   }
-  // Juste pour vérifier qu'on reçoit bien le code
-  res.status(200).json({ message: 'Callback reçu !', code, state });
+
+  if (!code) {
+    return res.status(400).json({ error: "No code provided" });
+  }
+
+  console.log("OAuth code reçu :", code);
+  console.log("State :", state);
+
+  res.status(200).json({ message: "Code reçu", code, state });
 }
