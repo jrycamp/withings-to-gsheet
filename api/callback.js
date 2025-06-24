@@ -8,7 +8,6 @@ export default async function handler(req, res) {
   const tokenUrl = 'https://account.withings.com/oauth2/token';
 
   const params = new URLSearchParams({
-    action: 'requesttoken',
     grant_type: 'authorization_code',
     client_id: process.env.CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
@@ -25,10 +24,10 @@ export default async function handler(req, res) {
       body: params.toString(),
     });
 
-    const rawText = await response.text(); // <-- important
-    console.log('RAW RESPONSE FROM WITHINGS:', rawText); // log pour débogage
+    const rawText = await response.text();
+    console.log('RAW RESPONSE FROM WITHINGS:', rawText);
 
-    res.status(response.status).send(`<pre>${rawText}</pre>`); // affichage brut dans navigateur
+    res.status(response.status).send(`<pre>${rawText}</pre>`);
   } catch (err) {
     console.error('Error fetching token:', err);
     res.status(500).send('Server error during token exchange');
